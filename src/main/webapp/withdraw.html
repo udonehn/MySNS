@@ -14,13 +14,11 @@
 </style>
 </head>
 <body>
-<form action = "withdraw.jsp" method="post">
-
 	<div class="page-hdr">MySNS</div>
 	<div class="page-body">
 		<div class="section pad-24 mtop-30">
-			<input name="id" type="text" placeholder="아이디 (이메일주소)" required>
-			<input type="submit" class="mtop-20" value="회원탈퇴하기">
+			<input id="id" type="text" placeholder="아이디 (이메일주소)" required>
+			<input type="submit" class="mtop-20" value="회원탈퇴하기" onclick="withdraw()">
 		</div>
 			<div class="section pad-24 mtop-30">
 				<div class="desc mtop-20 mbot-20">
@@ -29,6 +27,35 @@
 			</div>
 	</div>
 	<div class="page-footer">Copyright: mysns.com, 2022</div>
-</form>
 </body>
 </html>
+
+<script src="js/jquery-3.6.2.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+function withdraw() {
+	var id = $("#id").val().trim();
+	if (id == "") {
+		alert("아이디를 입력해 주세요.");
+		$("#id").focus();
+		return;
+	}
+	var url ="jsp/withdraw.jsp?id=" + id;
+	AJAX.call(url, null, function(data) {
+		var code = data.trim();
+		if(code == "NE") {
+			alert("회원 정보를 찾을 수 없습니다.");
+		}
+		else if(code == "OK") {
+			alert("회원탈퇴가 완료되었습니다.\n그동안 이용해주셔서 감사드립니다.");
+		}
+		else if(code =="ER"){
+			alert("회원 탈퇴 처리 중 오류가 발생하였습니다.")
+		}
+		else {
+			alert("오류 발생.")
+			//window.location.href = "main.html";
+		}
+	});
+}
+</script>
