@@ -11,6 +11,6 @@ public class ConnectionPool {
 		if (_ds == null) {
 		_ds = (DataSource) (new InitialContext()).lookup("java:comp/env/jdbc/mysns");
 	}
-	return _ds.getConnection();
+		return _ds.getConnection();
 	}
 }

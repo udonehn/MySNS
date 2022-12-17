@@ -13,5 +13,5 @@ public class FeedObj {
 	public String getId() { return this.id; }
 	public String getContent() { return this.content; }
 	public String getTs() { return this.ts; }
-	public String getImages() {return this.images;}
+	public String getImages() { return this.images; }
 }
