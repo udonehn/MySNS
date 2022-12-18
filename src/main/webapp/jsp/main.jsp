@@ -3,15 +3,9 @@
 <%@ page import="util.*" %>
 <%@ page import="dao.*" %>
 <%
-	String uid = (String) session.getAttribute("id");
-	if (uid == null){
-		response.sendRedirect("login.html");
-		return;
-	}
-	session.setAttribute("id",uid);
-	
-	ArrayList<FeedObj> feeds = (new FeedDAO()).getList();
+	String str = ((new FeedDAO()).getList());
 
+	/*
 	String str = "<table align=center>";
 	str += "<tr><th colspan=2>작성글 리스트</th></tr>";
 	
@@ -30,5 +24,6 @@
 		str += "<tr><td colspan=2>" + feed.getContent() + "</td></tr>";
 		}
 	str += "</table>";
+	*/
 	out.print(str);
 %>

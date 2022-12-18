@@ -27,7 +27,7 @@
 				<div class="desc mtop-20 mbot-20">
 					회원 가입시 MySNS의 약관에 동의하신 것으로 간주합니다.
 				</div>
-				<a href="www.naver.com"><div class="button">약관보기</div></a>
+				<a href="#"><div class="button">약관보기</div></a>
 			</div>
 	</div>
 	<div class="page-footer">Copyright: mysns.com, 2022</div>
@@ -68,22 +68,30 @@ function signup() {
 		return;
 	}
 	
-	var url ="jsp/signup.jsp?id=" + id + "&ps=" + ps + "&name=" + name;
-	AJAX.call(url, null, function(data) {
+	var usrobj = {id: id, password: ps, name: name, ts: getToday()};
+	var params = {id: id, jsonstr: JSON.stringify(usrobj)};
+	
+	var url ="jsp/signup.jsp";
+	AJAX.call(url, params, function(data) {
 		var code = data.trim();
 		if(code == "EX") {
 			alert("이미 가입한 회원입니다.");
 		}
-		else if(code == "OK") {
-			alert("회원 가입이 완료되었습니다.");
-		}
-		else if(code =="ER") {
-			alert("회원 가입 중 오류가 발생하였습니다.");
+		else if(code == "ER") {
+			alert("회원가입 처리중 에러가 발생하였습니다.");
 		}
 		else {
-			alert("오류 발생.");
-			//window.location.href = "main.html";
+			alert("회원 가입이 완료되었습니다.");
+			window.location.href = "main.html";
 		}
 	});
+}
+
+function getToday() {
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = ("0" + (1 + date.getMonth())).slice(-2);
+	var day = ("0" + date.getDate()).slice(-2);
+	return year + "-" + month + "-" + day;
 }
 </script>

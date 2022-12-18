@@ -77,9 +77,15 @@ function upload() {
 	
 	var imgobj = $("#image")[0].files[0];
 	
+	var jsonobj = {id: id, content: content, ts: getTime()};
+	if (imgobj != null) {
+		jsonobj.images = [imgobj.name];
+	}
+	
 	var params = new FormData(); // multipart/form-data를 전송하기 위해 웹 표준에서 제공하는 객체
-	params.append("id", id);
-	params.append("content", content);
+	//params.append("id", id);
+	//params.append("content", content);
+	params.append("jsonstr", JSON.stringify(jsonobj));
 	if (imgobj != null) {
 		params.append("image", imgobj);
 	}
@@ -95,5 +101,18 @@ function upload() {
 			window.location.href = "main.html";
 		}
 	}, true);
+}
+
+function getTime() {
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = ("0" + (1 + date.getMonth())).slice(-2);
+	var day = ("0" + date.getDate()).slice(-2);
+	
+	var hour = ("0" + date.getHours()).slice(-2);
+	var min = ("0" + date.getMinutes()).slice(-2);
+	var sec = ("0" + date.getSeconds()).slice(-2);
+	
+	return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
 }
 </script>
