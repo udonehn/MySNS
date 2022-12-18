@@ -19,3 +19,9 @@ CREATE TABLE IF NOT EXISTS feed(
 	-- ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	jsonstr VARCHAR(8192)
 );
+
+CREATE TABLE IF NOT EXISTS friend(
+	id VARCHAR(128), -- "email"
+	frid VARCHAR(128), -- "email“
+	INDEX idx1(id)
+);

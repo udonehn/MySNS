@@ -125,4 +125,40 @@ public class UserDAO {
 			if (conn != null) conn.close();
 		}
 	}
+	public String get(String uid) throws NamingException, SQLException {
+		Connection conn = ConnectionPool.get();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT jsonstr FROM user WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, uid);
+			rs = stmt.executeQuery();
+			return rs.next() ? rs.getString("jsonstr") : "{}";
+		} finally {
+			if (rs != null) rs.close();
+			if (stmt != null) stmt.close();
+			if (conn != null) conn.close();
+		}
+	}
+	public boolean update(String uid, String jsonstr) throws NamingException, SQLException {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			String sql = "UPDATE user SET jsonstr = ? WHERE id = ?";
+			
+			conn = ConnectionPool.get();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, jsonstr);
+			stmt.setString(2, uid);
+			
+			int count = stmt.executeUpdate();
+			return (count == 1) ? true : false;
+			
+		} finally {
+			if (stmt != null) stmt.close();
+			if (conn != null) conn.close();
+		}
+	}
+
 }

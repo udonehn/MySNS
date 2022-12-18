@@ -94,14 +94,14 @@ public class FeedDAO {
 			if (conn != null) conn.close();
 		}
 	}
-	public String getGroup(String maxNo) throws NamingException, SQLException {
+	public String getGroup(String frids, String maxNo) throws NamingException, SQLException {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "SELECT jsonstr FROM feed";
+			String sql = "SELECT jsonstr FROM feed WHERE id IN (" + frids + ")";
 			if (maxNo != null) {
-				sql += " WHERE no < " + maxNo;
+				sql += " AND no < " + maxNo;
 			}
 			sql += " ORDER BY no DESC LIMIT 3";
 			
