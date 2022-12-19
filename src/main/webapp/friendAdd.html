@@ -53,11 +53,12 @@ function start(uid) {
 function show(list) {
 	var str = "", cnt = 0;
 	for (var i=0; i<list.length; i++) {
-		if (list[i].id == myId) continue;
+	if (list[i].id == myId) continue;
 		str += getFeedCode(list[i]);
 		cnt++;
 	}
 	$("#list").append(str);
+	
 	if (cnt == 0) {
 		$(".page-msg").removeClass("hide");
 	}
@@ -65,6 +66,7 @@ function show(list) {
 
 function getFeedCode(user) {
 	var str = "<div class='feed'>";
+	
 	str += "<div class='author'>";
 	if (user.images == null) {
 		str += "<div class='photo'></div>";

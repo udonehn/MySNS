@@ -89,6 +89,7 @@ function removeFriend(uid) {
 		}
 		else {
 			alert("친구 삭제가 완료되었습니다.");
+			DataCache.remove("mainCache");
 			window.location.reload();
 		}
 	});
